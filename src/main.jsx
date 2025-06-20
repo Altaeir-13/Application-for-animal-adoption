@@ -1,17 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css'; // Importa os estilos globais
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
-// Encontra o elemento 'root' no DOM, que está no arquivo index.html.
-// Este é o ponto onde toda a nossa aplicação React será montada.
-const rootElement = document.getElementById('root');
+import App from './App.jsx'; // O layout principal (com Navbar e Footer)
+import HomePage from './pages/HomePage.jsx'; // Sua página Home
+import LoginPage from './pages/LoginPage.jsx'; // Sua página de Login
+import CadastroPage from './pages/CadastroPage.jsx'; // Sua página de Cadastro
+import './index.css';
 
-// Cria a raiz da aplicação React dentro do elemento 'root'.
-// O modo StrictMode ajuda a identificar potenciais problemas na aplicação.
-ReactDOM.createRoot(rootElement).render(
+// Cria o roteador e defina a hierarquia de rotas
+const router = createBrowserRouter([
+  {
+    path: "/", // Esta é a rota "pai"
+    element: <App />, // Ela renderiza o layout principal <App />
+    // As "children" são as páginas que serão renderizadas dentro do <Outlet /> do App
+    children: [
+      {
+        index: true,
+        element: <HomePage />, // Define a HomePage como a página padrão da rota pai ("/")
+      },
+      {
+        path: "login", // Quando a URL for "/login"
+        element: <LoginPage />, // Renderiza a LoginPage
+      },
+      {
+        path: "cadastro",
+        element: <CadastroPage />
+      }
+    ]
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
 );
-

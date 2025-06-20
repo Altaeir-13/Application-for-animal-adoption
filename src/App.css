@@ -57,6 +57,114 @@ h1 + p { /* O parágrafo logo após o h1 */
   margin-bottom: 3rem;
 }
 
+/* --- LoginPage Styles --- */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* Usa a altura mínima da janela de visualização para centralizar verticalmente */
+  min-height: calc(100vh - 150px); /* Ajuste o valor 150px se sua navbar/footer tiverem alturas diferentes */
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+/* A caixa branca onde o formulário de login fica */
+.login-box {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* Agrupador para cada 'label' e 'input' */
+.input-group {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #777;
+  margin-bottom: 1rem;
+  box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos na largura total */
+  display: flex;
+  border-radius: 8px;
+}
+
+form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  display: flex;
+  background-color: transparent; 
+}
+
+/* Botão principal de "Entrar" */
+.button {
+  width: 100%;
+  background: var(--primary-red);
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1rem;
+}
+
+.link-button {
+  border: none;
+  background:  none;
+  padding: none;
+  color: var(--dark-blue);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Mensagem de erro que aparece abaixo dos inputs */
+.error-message {
+  color: var(--primary-red);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* --- CadastroPage Styles --- */
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 150px); /* Ajuste conforme necessário */
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.cadastro-box {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.input-group-cadastro {
+  padding: 15px;
+  border: 1px solid #777;
+  margin-bottom: 1rem;
+  display: flex;
+  border-radius: 8px;
+}
+
 /* --- Navbar --- */
 .navbar {
   background-color: var(--white);
