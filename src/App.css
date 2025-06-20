@@ -100,23 +100,6 @@ form input {
   background-color: transparent; 
 }
 
-/* Botão principal de "Entrar" */
-.button {
-  width: 100%;
-  background: var(--primary-red);
-  color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 600;
-  border: none;
-  padding: 0.9rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-top: 1rem;
-}
-
 .link-button {
   border: none;
   background:  none;
@@ -293,7 +276,6 @@ form input {
   background-color: #c42d3a; /* Um tom de vermelho mais escuro */
   transform: scale(1.03);
 }
-
 /* --- Footer --- */
 .footer {
   background-color: var(--dark-blue);

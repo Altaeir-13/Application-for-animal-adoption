@@ -45,7 +45,7 @@ export default function LoginPage() {
                 />
             </div>
             {error && <p className="error-message">{error}</p>}
-            <button type="submit" className="button">Entrar</button>
+            <button type="submit" className="adopt-button">Entrar</button>
             <button type="button" className='link-button'>Esqueci minha senha</button>
             <p>Não tem uma conta? <a href="/cadastro">Cadastre-se</a></p>
             </form>     

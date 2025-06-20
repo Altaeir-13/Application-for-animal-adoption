@@ -91,7 +91,7 @@ export default function CadastroPage() {
 
                     {error && <p className="error-message">{error}</p>}
                     {/* Pequena correção: a classe do botão deve ser "login-button" para usar o mesmo estilo */}
-                    <button type="submit" className="button">Cadastrar</button>
+                    <button type="submit" className="adopt-button">Cadastrar</button>
                 </form>
             </div>
         </div>
