@@ -1,4 +1,4 @@
-# Logs
+# Ficheiros de log
 logs
 *.log
 npm-debug.log*
@@ -7,17 +7,25 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Dependências (ignora em qualquer subpasta)
+**/node_modules
+
+# Ficheiros de build/distribuição
 dist
 dist-ssr
-*.env
-*.local
+build
 
-# Editor directories and files
+# Ficheiros de ambiente (SEGREDO - ignora em qualquer subpasta)
+.env
+**/.env
+.env.local
+**/.env.local
+
+# Ficheiros do sistema operacional e de editor
+.DS_Store
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
