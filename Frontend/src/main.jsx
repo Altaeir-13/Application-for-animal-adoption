@@ -1,3 +1,5 @@
+// src/main.jsx
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
@@ -5,30 +7,37 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+// 1. Importe o seu AuthProvider do ficheiro de contexto
+import { AuthProvider } from './contexts/AuthContext.jsx'; 
+
 import App from './App.jsx'; // O layout principal (com Navbar e Footer)
 import HomePage from './pages/HomePage.jsx'; // Sua página Home
 import LoginPage from './pages/LoginPage.jsx'; // Sua página de Login
 import CadastroPage from './pages/CadastroPage.jsx'; // Sua página de Cadastro
+import AnimalPage from './pages/AnimalPage/AnimalPage.jsx'; // Sua página de detalhes do animal
 import './index.css';
 
-// Cria o roteador e defina a hierarquia de rotas
+// A sua configuração de rotas permanece exatamente a mesma, está perfeita
 const router = createBrowserRouter([
   {
-    path: "/", // Esta é a rota "pai"
-    element: <App />, // Ela renderiza o layout principal <App />
-    // As "children" são as páginas que serão renderizadas dentro do <Outlet /> do App
+    path: "/",
+    element: <App />,
     children: [
       {
         index: true,
-        element: <HomePage />, // Define a HomePage como a página padrão da rota pai ("/")
+        element: <HomePage />,
       },
       {
-        path: "login", // Quando a URL for "/login"
-        element: <LoginPage />, // Renderiza a LoginPage
+        path: "login",
+        element: <LoginPage />,
       },
       {
         path: "cadastro",
         element: <CadastroPage />
+      },
+      {
+        path: "animal/:id",
+        element: <AnimalPage/>
       }
     ]
   },
@@ -36,6 +45,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    {/* 2. AQUI ESTÁ A CORREÇÃO:
+        Envolvemos o RouterProvider com o nosso AuthProvider.
+        Agora, toda a aplicação tem acesso ao contexto de autenticação.
+    */}
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>,
 );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
     // Estados para armazenar os valores dos campos de email e senha
@@ -8,7 +9,7 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('');
 
-    
+    const navigator = useNavigate();
 
     // Função chamada quando o formulário é enviado
     const handleSubmit = async (event) => {
@@ -34,7 +35,7 @@ export default function LoginPage() {
             }
 
             console.log('Login Bem-sucedido')
-            navigator
+            navigator('/')
 
         } catch (error) {
             setError('Erro ao fazer login: ' + error.message);

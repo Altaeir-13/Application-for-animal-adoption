@@ -147,65 +147,6 @@ form input {
   border-radius: 8px;
 }
 
-/* --- Navbar --- */
-.navbar {
-  background-color: var(--white);
-  padding: 1rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.navbar-brand {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--primary-red);
-  text-decoration: none;
-}
-
-.navbar-nav {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-link {
-  color: var(--dark-blue);
-  text-decoration: none;
-  font-weight: 600;
-  padding-bottom: 5px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--primary-red);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover {
-  color: var(--primary-red);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
 /* --- Animal List & Cards --- */
 .animal-list h2 {
   text-align: center;

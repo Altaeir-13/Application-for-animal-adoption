@@ -1,16 +1,21 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 
-// AQUI ESTÁ A CORREÇÃO PRINCIPAL:
-// As props foram renomeadas para corresponder aos dados da API (name, breed, etc.)
-export default function AnimalCard({ name, breed, imag_url, description }) {
+export default function AnimalCard({ id, name, breed, imag_url, description }) {
 
   const handleImageError = (e) => {
     e.target.onerror = null;
     e.target.src = 'https://placehold.co/400x400/ccc/fff?text=Imagem+Indisponível';
   };
 
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/animal/${id}`);
+  };
+
   return (
-    <div className="animal-card">
+    <div className="animal-card" onClick={handleCardClick}>
       <img
         src={imag_url} // Usando a prop correta
         alt={`Foto de ${name}`} // Usando a prop correta

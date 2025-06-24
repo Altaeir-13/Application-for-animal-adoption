@@ -142,6 +142,8 @@ app.put("/candidatura/:id", async (req, res) => {
   try {
     const { id } = req.params
 
+    const {status} = req.body;
+
     const updateCandidatura = { status };
 
     const { data, error } = await supabaseAdmin 
@@ -172,8 +174,7 @@ app.delete("/candidaturas/:id", async (req, res) => {
     const { data, error } = await supabaseAdmin
       .from("adoption_applications")
       .delete()
-      .eq("user_id",id)
-      .select();
+      .eq("id",id)
 
       if (error) throw error;
 
