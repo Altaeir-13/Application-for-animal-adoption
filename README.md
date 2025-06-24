@@ -19,50 +19,64 @@ Como Configurar o Projeto (Para Colaboradores)
 Se você acabou de clonar este projeto, siga estes passos para configurar o seu ambiente de desenvolvimento:
 
 1. Configurar o Backend (API)
-# 1. Aceda à pasta da API
+# 1. Entre na pasta da API
+
 cd Backend
 
-# 2. Crie o seu arquivo der o nome de .env
+# 1.1 Crie o seu arquivo, der o nome de .env
+
 cd .env
 
-# 3. Abra o arquivo .env que acabou de ser criado e preencha com as SUAS chaves do Supabase.
+# 1.2 Abra o arquivo .env que acabou de ser criado e preencha com as SUAS chaves do Supabase.
+
 Cole esse codigo no seu .env 
 
-# Arquivo .env da API
-
-# Porta em que a API vai rodar
 PORT=3001
-
-# As mesmas credenciais do seu projeto Supabase
 SUPABASE_URL= Sua Chave
 SUPABASE_SERVICE_KEY= Sua Chave
 
-# 4. Instale todas as dependências do projeto, espress, cors, dotenv e as dependecias para se conecta com o Banco de dados
+# 1.3 Instale todas as dependências do projeto, espress, cors, dotenv e as dependecias para se conecta com o Banco de dados
+
+O arquivo package.json ja fala quais dependecias o npm deve instala.
+
+Execute esse comando.
+
 npm install
 
-# 5. Inicie o servidor da API
+# 1.4 Inicie o servidor da API
+
+Execute esse comando.
+
 node index.js
 
 O seu servidor backend deverá estar a rodar em http://localhost:3001.
 
 2. Configurar o Frontend (React)
-# 1. Volte para a raiz e aceda à pasta do frontend
+# 2.1 Volte para a raiz e aceda à pasta do frontend
+
 cd ../frontend
 
-# 2. Crie o seu arquivo de ambiente local, der o nome de .env.local
+# 2.2 Crie o seu arquivo de ambiente local, der o nome de .env.local
+
 cd .env.local
 
-# 3. Abra o arquivo .env.local e preencha com as SUAS chaves do Supabase.
+# 2.3 Abra o arquivo .env.local e preencha com as SUAS chaves do Supabase.
+
 cole esse codigo no seu .env.local
 
-# .env.local
 VITE_SUPABASE_URL= Sua Chave
 VITE_SUPABASE_ANON_KEY= Sua Chave
 
-# 4. Instale todas as dependências do projeto
+# 2.4 Instale todas as dependências do projeto
+
+O arquivo package.json ja fala quais dependecias o npm deve instala.
+
+Execute esse comando.
+
 npm install
 
-# 5. Inicie a aplicação React
+# 2.5 Inicie a aplicação React
+
 npm run dev
 
 A sua aplicação de frontend deverá estar acessível em http://localhost:5173.
