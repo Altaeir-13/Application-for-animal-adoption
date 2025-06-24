@@ -1,25 +1,26 @@
 import React from 'react';
-export default function AnimalCard({ nome, raca, imagem, descricao }) {
 
-  // Esta função é uma segurança para o caso de a URL da imagem falhar.
-  // Ela substitui a imagem quebrada por uma imagem padrão.
+// AQUI ESTÁ A CORREÇÃO PRINCIPAL:
+// As props foram renomeadas para corresponder aos dados da API (name, breed, etc.)
+export default function AnimalCard({ name, breed, imag_url, description }) {
+
   const handleImageError = (e) => {
-    e.target.onerror = null; // Previne um loop de erros
+    e.target.onerror = null;
     e.target.src = 'https://placehold.co/400x400/ccc/fff?text=Imagem+Indisponível';
   };
 
   return (
     <div className="animal-card">
       <img
-        src={imagem}
-        alt={`Foto de ${nome}`}
+        src={imag_url} // Usando a prop correta
+        alt={`Foto de ${name}`} // Usando a prop correta
         className="animal-image"
         onError={handleImageError}
       />
       <div className="animal-info">
-        <h3>{nome}</h3>
-        <p><strong>Raça:</strong> {raca}</p>
-        <p>{descricao}</p>
+        <h3>{name}</h3> {/* Usando a prop correta */}
+        <p><strong>Raça:</strong> {breed || 'SRD'}</p> {/* Usando a prop correta */}
+        <p>{description}</p> {/* Usando a prop correta */}
         <button className="adopt-button">Quero Adotar</button>
       </div>
     </div>

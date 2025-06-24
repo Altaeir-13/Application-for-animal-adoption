@@ -63,8 +63,7 @@ h1 + p { /* O parágrafo logo após o h1 */
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* Usa a altura mínima da janela de visualização para centralizar verticalmente */
-  min-height: calc(100vh - 150px); /* Ajuste o valor 150px se sua navbar/footer tiverem alturas diferentes */
+  min-height: calc(100vh - 150px);
   padding: 2rem 1rem;
   box-sizing: border-box;
 }

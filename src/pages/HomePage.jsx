@@ -1,4 +1,3 @@
-import React from 'react';
 import AnimalList from '../components/AnimalList/AnimalList.jsx';
 
 // Este é o componente que representa a página inicial completa.
