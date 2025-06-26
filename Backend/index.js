@@ -165,6 +165,32 @@ app.put("/admin/solicitacao/:id", async (req, res) => {
     return res.status(500).json({ error: "Erro interno ao atualizar candidatura." });
   }
 });
+// Rota para editar solicitacoes, quando um usuario é aprovado, os outro usuarios que se candidataram para o msm animal tem que ser informados. Acesso só para adms
+app.put("/admin/solicitacoes/:id/Users", async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const {status} = req.body;
+
+    const { data, error } = await supabaseAdmin 
+      .from("adoption_applications")
+      .update({ status: status }) // Atualiza o status da candidatura
+      .eq("pet_id",id)
+      .select();
+
+    if (error) throw error
+    // Se o dado ser nulo signifca que ele não foi encontrado
+    if (!data || data.length == 0) {
+      return res.status(404).json({ error: 'Candidatura não encontrada.' });
+    }
+    return res.status(200).json(data);
+    
+
+  } catch (error) {
+    console.error("Erro ao atualizar candiatura:", error.message);
+    return res.status(500).json({ error: "Erro interno ao atualizar candidatura." });
+  }
+});
 // Rota pra Deleta uma solicitacao  de um usuário específico
 app.delete("/solicitacoes/:id", async (req, res) => {
   try {

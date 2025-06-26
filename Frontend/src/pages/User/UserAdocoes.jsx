@@ -1,5 +1,3 @@
-// src/pages/MyApplicationsPage.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../supabaseClient';
@@ -13,9 +11,8 @@ export default function MyApplicationsPage() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // A função para buscar os dados continua a usar o Supabase diretamente,
-    // o que é seguro e eficiente para esta página.
-    async function fetchUserApplications() {
+    // A função para buscar os dados usar o Supabase diretamente,
+    async function getSolicitacoes() {
         if (!user) return;
         try {
             setError(null);
@@ -35,17 +32,17 @@ export default function MyApplicationsPage() {
 
     useEffect(() => {
         if (authLoading) return;
-        fetchUserApplications();
+        getSolicitacoes();
     }, [user, authLoading]);
 
 
-    // --- FUNÇÃO DE REMOÇÃO ATUALIZADA ---
-    async function handleRemoveApplication(applicationId) {
+    // --- FUNÇÃO DE REMOÇÃO ---
+    async function deleteSolicitacao(id) {
         try {
            
-            await api.delete(`/solicitacoes/${applicationId}`);
+            await api.delete(`/solicitacoes/${id}`);
 
-            fetchUserApplications(); 
+            getSolicitacoes(); 
 
         } catch (err) {
             console.error("Erro ao remover candidatura:", err);
@@ -74,7 +71,7 @@ export default function MyApplicationsPage() {
                             </div>
                             <div className="user-actions">
                                 <button onClick={() => navigate(`/animal/${app.pets.id}`)}>Ver Pet</button>
-                                <button onClick={() => handleRemoveApplication(app.id)}>Remover</button>
+                                <button onClick={() =>  deleteSolicitacao(app.id)}>Remover</button>
                             </div>
                         </div>
                     ))

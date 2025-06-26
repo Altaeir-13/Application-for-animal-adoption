@@ -1,22 +1,23 @@
-// src/pages/AnimalPage/AnimalPage.jsx
-
+/* AnimalPage.jsx
+   Componente para exibir os detalhes de um animal específico e permitir que o utilizador se candidate para a adoção.
+   Utiliza o Supabase para buscar os dados do animal e registrar a candidatura.
+*/
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from "../../supabaseClient";
-// 1. Importamos o hook 'useAuth' para saber quem está logado
 import { useAuth } from '../../contexts/AuthContext';
 import './Animal.css';
 
 export default function AnimalPage() {
     const { id } = useParams();
-    const { user } = useAuth(); // 2. Obtemos o utilizador logado do nosso contexto
+    const { user } = useAuth(); // Obtemos o utilizador logado do nosso contexto
     const navigate = useNavigate();
     
     const [animal, setAnimal] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Efeito para buscar os detalhes do animal (sem alterações)
+    // Efeito para buscar os detalhes do animal
     useEffect(() => {
         async function getAnimal() {
             try {
@@ -45,15 +46,10 @@ export default function AnimalPage() {
     }, [id]);
 
     // Função para lidar com o clique no botão "Quero Adotar"
-    const handleAdoptionClick = async () => {
+    const insert_adoption = async () => {
         // Primeiro, verificamos se há um utilizador logado
         if (!user) {
-            alert("Você precisa de fazer login para se candidatar a uma adoção.");
             navigate('/login'); // Redireciona para a página de login
-            return;
-        }
-
-        if (!window.confirm(`Tem a certeza que quer candidatar-se para adotar o(a) ${animal.name}?`)) {
             return;
         }
 
@@ -75,7 +71,7 @@ export default function AnimalPage() {
                 throw insertError;
             }
 
-            alert("Candidatura enviada com sucesso! Entraremos em contacto em breve.");
+            alert("Candidatura enviada com sucesso! Entraremos em contato em breve para comfirma alguns dados.");
             navigate('/'); // Volta para a página inicial
 
         } catch (err) {
@@ -91,7 +87,6 @@ export default function AnimalPage() {
     return (
         <div className="animal-detail-container">
             <img
-                // Garanta que o nome da prop corresponde à sua coluna no banco de dados
                 src={animal.imag_url} 
                 alt={`Foto de ${animal.name}`}
                 className="detail-image"
@@ -101,8 +96,7 @@ export default function AnimalPage() {
                 <h2>{animal.species} | {animal.breed || 'SRD'}</h2>
                 <p><strong>Idade:</strong> {animal.age} anos</p>
                 <p className="detail-description">{animal.description}</p>
-                {/* 4. O botão agora chama a nossa nova função */}
-                <button onClick={handleAdoptionClick} className="adopt-button large">
+                <button onClick={insert_adoption} className="adopt-button large">
                     Quero Adotar {animal.name}!
                 </button>
             </div>

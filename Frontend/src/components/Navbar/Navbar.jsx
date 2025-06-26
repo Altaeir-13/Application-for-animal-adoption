@@ -1,5 +1,8 @@
-// src/components/Navbar/Navbar.jsx
-
+/* Navbar.jsx
+  Componente de Navegação do site, exibindo links para Home, Como Ajudar
+  e Perfil do usuário. Permite acesso a funcionalidades administrativas se o usuário for um administrador.
+  Exibe o nome do usuário e opções de gerenciamento de perfil. 
+*/
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -65,7 +68,7 @@ export default function Navbar() {
       
       <div className="navbar-links">
         <Link to="/">Home</Link>
-        <Link to="/como-ajudar">Como Ajudar</Link>
+        <Link to="/">Como Ajudar</Link> {/*Link to="/como-ajudar" ainda não implementado*/}
 
         {user ? (
           <div className="profile-menu-container" ref={profileMenuRef}>
@@ -97,19 +100,14 @@ export default function Navbar() {
                   </>
                 )}
                 
-                {/* --- AQUI ESTÁ A CORREÇÃO --- */}
-                {/* Usamos o 'to' do Link para criar o URL dinâmico corretamente */}
                 <Link 
-                  to={`/UserAdocoes/${user.id}`} 
-                  onClick={() => setIsProfileOpen(false)} 
-                  className="dropdown-item"
-                >
+                  to={`/UserAdocoes/${user.id}`} onClick={() => setIsProfileOpen(false)} className="dropdown-item">
                   Minhas Adoções
                 </Link>
-
-                <Link to="/perfil/editar" onClick={() => setIsProfileOpen(false)} className="dropdown-item">
+                {/* O Link to = perfil ainda nao foi implemtado*/}
+                <Link to="/" onClick={() => setIsProfileOpen(false)} className="dropdown-item">
                   Gerir Perfil
-                </Link>
+                </Link> 
                 
                 <button onClick={handleLogout} className="dropdown-item logout">
                   Terminar sessão

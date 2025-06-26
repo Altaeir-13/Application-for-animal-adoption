@@ -4,7 +4,7 @@
 */
 import React, { useState, useEffect } from 'react';
 import api from '../../server/server'; 
-import './Users.css'; // A usar o seu ficheiro CSS existente
+import './Users.css';
 
 export default function Pendentes() {
     const [applications, setApplications] = useState([]);
@@ -17,7 +17,7 @@ export default function Pendentes() {
         try {
             setLoading(true);
             setError(null);
-            // Chama a rota do backend que busca apenas as candidaturas pendentes
+           
             const response = await api.get('/admin/solicitacoes');
             setApplications(response.data);
         } catch (err) {
@@ -29,20 +29,35 @@ export default function Pendentes() {
     }
 
     // Função para APROVAR ou REJEITAR uma candidatura
-    async function putSolicitacoes(id, newStatus) {
+    async function putSolicitacao (id, newStatus) {
         const action = newStatus === 'aprovada' ? 'aprovar' : 'rejeitar';
 
         try {
-            // Chama a rota PUT correta para atualizar a candidatura
             await api.put(`/admin/solicitacao/${id}`, { status: newStatus });
-            alert(`Candidatura ${newStatus} com sucesso!`);
-            // Atualiza a lista para remover a candidatura que foi processada
+            //alert(`Candidatura ${newStatus} com sucesso!`);
             getSolicitacoes();
         } catch (err) {
             console.error(`Erro ao ${action} a candidatura:`, err);
-            alert(`Falha ao ${action} a candidatura.`);
+            setError(`Erro ao ${action} a candidatura, tente novamente mais tarde`, err);
         } finally {
             setLoading(false);
+        }
+    }
+
+    async function putSolicitacoes (id, newStatus) {
+            await api.put(`/admin/solicitacoes/${id}`, { status: newStatus });
+            getSolicitacoes();
+    }
+
+
+    // Função para muda o status do animal de Pendete para Adotado ou de Disponivel para Pendente
+    async function putAnimal (id, newStatus) {
+        try {
+            await api.put(`/admin/pets/${id}`, {status: newStatus})
+            
+        } catch {
+            console.error("Erro ao muda status do animal");
+            alert(`Erro ao muda o status do animal:${id}`);
         }
     }
 
@@ -97,10 +112,10 @@ export default function Pendentes() {
                                 </p>
                             </div>
                             <div className="user-actions">
-                                <button onClick={() => putSolicitacoes(app.id, 'aprovada')} className="action-button approve">
+                                <button onClick={() => { putSolicitacao(app.id, 'aprovada'); putAnimal(app.pets?.id, 'adotado');putSolicitacoes(app.pets?.id, 'O animal foi adotado por outro candidator, tente adota outro pet. Boa Sorte!') }} className="action-button approve">
                                     Aprovar
                                 </button>
-                                <button onClick={() => putSolicitacoes(app.id, 'rejeitada')} className="action-button reject">
+                                <button onClick={() => { putSolicitacao(app.id, 'rejeitada');  putAnimal(app.pets?.id, 'disponível') } } className="action-button reject">
                                     Rejeitar
                                 </button>
                             </div>
