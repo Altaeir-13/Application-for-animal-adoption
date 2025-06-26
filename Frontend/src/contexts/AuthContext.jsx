@@ -1,59 +1,92 @@
 // src/contexts/AuthContext.jsx
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { supabase } from '../supabaseClient'; // A sua conexão Supabase
+import { supabase } from '../supabaseClient';
 
-// 1. Criamos o Contexto
 const AuthContext = createContext();
 
-// 2. Criamos o Provedor do Contexto (o nosso componente "Central")
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // EFEITO 1: Apenas escuta por mudanças na autenticação (login/logout)
   useEffect(() => {
-    setLoading(true);
-    
-    // 3. Tentamos obter a sessão atual quando a aplicação carrega
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    // O onAuthStateChange já nos dá a sessão inicial quando carrega
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      // O loading principal é gerido pelo segundo useEffect
     });
 
-    // 4. O onAuthStateChange é o "escutador" mágico.
-    //    Ele é acionado sempre que alguém faz login ou logout.
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
-
-    // 5. Limpamos o "escutador" quando o componente é desmontado
     return () => {
       subscription?.unsubscribe();
     };
   }, []);
 
-  // 6. O valor que o nosso provedor vai fornecer a todos os componentes filhos
+  // EFEITO 2: Reage a mudanças no 'user' para buscar o perfil
+  // Este useEffect só roda quando o 'user' muda (de null para um utilizador, ou vice-versa)
+  useEffect(() => {
+    // Se não há utilizador, limpamos tudo e paramos de carregar
+    if (!user) {
+      setProfile(null);
+      setIsAdmin(false);
+      setLoading(false);
+      return;
+    }
+
+    // Se há um utilizador, buscamos o seu perfil
+    async function fetchProfile() {
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('full_name, Telephone, role')
+          .eq('id', user.id)
+          .single();
+
+        if (error) throw error;
+
+        if (data) {
+          setProfile(data);
+          setIsAdmin(data.role === 'admin');
+        }
+      } catch (error) {
+        console.error("Erro ao buscar o perfil do utilizador:", error);
+        setProfile(null);
+        setIsAdmin(false);
+      } finally {
+        // Marcamos o carregamento como completo após a busca do perfil
+        setLoading(false);
+      }
+    }
+
+    fetchProfile();
+  }, [user]); // A dependência [user] é a chave para esta lógica
+
   const value = {
     session,
     user,
+    profile,
+    isAdmin,
+    loading,
     signOut: () => supabase.auth.signOut(),
   };
 
-  // 7. Renderizamos os componentes filhos apenas quando o carregamento inicial terminar
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }
 
-// 8. Criamos um hook personalizado para usar o nosso contexto de forma fácil
+// Hook personalizado para usar o contexto
 export function useAuth() {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
+  }
+  return context;
 }

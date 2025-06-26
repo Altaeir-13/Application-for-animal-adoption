@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
+
 export default function AnimalCard({ id, name, breed, imag_url, description }) {
 
   const handleImageError = (e) => {
@@ -9,9 +10,10 @@ export default function AnimalCard({ id, name, breed, imag_url, description }) {
   };
 
   const navigate = useNavigate();
-
+  
+  // Função para lidar com o clique no card e navegar para a página de detalhes do animal. Usando a prop 'id' para construir a URL de navegação
   const handleCardClick = () => {
-    navigate(`/animal/${id}`);
+    navigate(`/animal/${id}`)
   };
 
   return (

@@ -13,14 +13,14 @@ export default function AnimalList() {
       setLoading(true); 
       setError(null);
 
-      const { data, error: dbError } = await supabase
+      const { data, error } = await supabase
         .from('pets')
         .select('*')
         .eq('status', 'disponível'); 
       
-      if (dbError) throw dbError;
+      if (error) throw error;
 
-      setAnimais(data)
+      setAnimais(data);
     } catch (error) {
       console.error("Erro ao buscar animais:", error);
       setError("Não foi possível carregar os animais. Tente novamente mais tarde.");
@@ -42,9 +42,8 @@ export default function AnimalList() {
 
       <div className="cards-grid">
         {animais.length > 0 ? (animais.map(animal => (<AnimalCard key={animal.id} {...animal} />))
-        ) : (
-        <p className="status-message">Nenhum animal disponível para adoção no momento.</p>
-        )}
+        ) : ( <p className="status-message">Nenhum animal disponível para adoção no momento.</p>)}
+        
       </div>
     </div>
   );

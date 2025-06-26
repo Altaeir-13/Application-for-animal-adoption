@@ -1,3 +1,9 @@
+/*  CadastroPage.jsx
+    Página de cadastro de usuários.
+    Permite que novos usuários se registrem no sistema.
+    Inclui campos para nome completo, email, senha, confirmação de senha e telefone.
+    Utiliza o Supabase para autenticação e armazenamento de dados.
+*/
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +19,7 @@ export default function CadastroPage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // Nome da função corrigido para o padrão (signUp)
+
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError(null);
@@ -49,7 +55,7 @@ export default function CadastroPage() {
         throw signUpError;
       }
 
-      alert('Cadastro realizado com sucesso! Verifique seu e-mail para confirmar a conta.');
+      alert('Cadastro realizado com sucesso!');
       navigate('/login');
 
     } catch (err) {

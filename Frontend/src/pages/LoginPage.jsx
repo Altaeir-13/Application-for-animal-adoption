@@ -1,3 +1,11 @@
+/* Página de Login
+    * Esta página permite que os usuários façam login no sistema.
+    * Inclui campos para email e senha, com validação básica.
+    * Utiliza o Supabase para autenticação.
+    * Exibe mensagens de erro em caso de falha no login.
+    * O estado de carregamento é gerenciado para desabilitar o botão durante o processo de login.
+    * Após o login bem-sucedido, o usuário é redirecionado para a página inicial.
+ */
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';

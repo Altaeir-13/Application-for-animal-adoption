@@ -19,9 +19,9 @@ const supabaseAdmin = createClient(
 // =======================================================
 
 // Rota para CRIAR um novo animal. Acesso só para adms
-app.post("/pets", async (req, res) => {
+app.post("/admin/pets", async (req, res) => {
   try {
-    const { nome, age, species, breed, description, imagelink } = req.body;
+    const { nome, age, species, breed, description, imagelink, status} = req.body;
 
     // Tenta inserir na tabela 'pets', mapeando os nomes CORRETAMENTE
     const { data, error } = await supabaseAdmin
@@ -34,6 +34,7 @@ app.post("/pets", async (req, res) => {
           breed: breed,
           description: description,
           imag_url: imagelink, // Mapeia req.body.imagelink para a coluna image_url
+          status: 'disponível', // Define o status como 'disponível' por padrão
         },
       ])
       .select() // .select() faz com que o Supabase retorne o objeto recém-criado
@@ -52,7 +53,7 @@ app.post("/pets", async (req, res) => {
   }
 });
 // Rota pra Editar um animal. Acesso só para adms
-app.put("/pets/:id", async (req, res) => {
+app.put("/admin/pets/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { name, age, species, breed, description, imag_url, status } =
@@ -87,7 +88,7 @@ app.put("/pets/:id", async (req, res) => {
   }
 });
 // Rota pra Deleta um animal que ja foi adotado. Acesso só para adms
-app.delete('/pets/:id', async (req, res) => {
+app.delete('/admin/pets/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -112,8 +113,8 @@ app.delete('/pets/:id', async (req, res) => {
     return res.status(500).json({ error: 'Erro interno ao excluir o animal.' });
   }
 });
-// Rota para criar uma candidatura
-app.post("/candidatura", async (req, res) => {
+// Rota para criar uma nova solicitacao de adoção.
+app.post("/solicitacao", async (req, res) => {
   try {
     const { petId, userId } = req.body;
 
@@ -137,19 +138,17 @@ app.post("/candidatura", async (req, res) => {
     return res.status(500).json({ error: "Erro interno ao criar a candidatura." });
   }
 });
-// Rota para editar uma candidatura de um usuário específico. Acesso só para adms
-app.put("/candidatura/:id", async (req, res) => {
+// Rota para editar uma solicitacoes de um usuário específico. Acesso só para adms
+app.put("/admin/solicitacao/:id", async (req, res) => {
   try {
     const { id } = req.params
 
     const {status} = req.body;
 
-    const updateCandidatura = { status };
-
     const { data, error } = await supabaseAdmin 
       .from("adoption_applications")
-      .update(updateCandidatura)
-      .eq("user_id",id)
+      .update({ status: status }) // Atualiza o status da candidatura
+      .eq("id",id)
       .select()
       .single();
 
@@ -166,8 +165,8 @@ app.put("/candidatura/:id", async (req, res) => {
     return res.status(500).json({ error: "Erro interno ao atualizar candidatura." });
   }
 });
-// Rota pra Deleta um candidatura de um usuário específico
-app.delete("/candidaturas/:id", async (req, res) => {
+// Rota pra Deleta uma solicitacao  de um usuário específico
+app.delete("/solicitacoes/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -175,10 +174,9 @@ app.delete("/candidaturas/:id", async (req, res) => {
       .from("adoption_applications")
       .delete()
       .eq("id",id)
+      .single(); // Pega apenas um objeto
 
       if (error) throw error;
-
-      if (!data || data.length === 0) return res.status(404).json({ error: "Nenhuma candidatura encontrada." });
       
       return res.status(200).json(data);
 
@@ -187,8 +185,8 @@ app.delete("/candidaturas/:id", async (req, res) => {
     return res.status(500).json({ error: "Não foi possível Deleta uma candidatura." });
   }
 });
-// Rota para listar todas as candidaturas de um usuário específico
-app.get("/candidaturas/:id", async (req, res) => {
+// Rota para listar todas as solicitações de um usuário específico
+app.get("/solicitacoes/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -210,7 +208,7 @@ app.get("/candidaturas/:id", async (req, res) => {
   }
 });
 // Rota para listar TODAS as candidaturas pendentes Acesso só para adms
-app.get("/candidatus", async (req, res) => {
+app.get("/admin/solicitacoes", async (req, res) => {
   try {
     const { data, error } = await supabaseAdmin
       .from("adoption_applications")
@@ -218,7 +216,7 @@ app.get("/candidatus", async (req, res) => {
         `
         id, status, application_date,
         pets (id, name),
-        profiles (id, full_name)
+        profiles (id, full_name, Telephone)
       `
       )
       .eq("status", "pendente");
@@ -228,6 +226,29 @@ app.get("/candidatus", async (req, res) => {
   } catch (error) {
     console.error("Erro ao buscar candidaturas:", error.message);
     return res.status(500).json({ error: "Não foi possível buscar as candidaturas." });
+  }
+});
+// Rota para seta um usuário cadastrado com admin. Acesso só para adms.
+app.put("/users/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role } = req.body;
+    // Obs : o rapaz que fez o banco de dados disse que o role só pode ser 'user' ou 'admin', ele poderia coloca um enum, ou um boolean, então vamos deixar assim mesmo.
+   
+    const {data, error} = await supabaseAdmin
+    .from("profiles")
+    .update( { role: role } ) // Atualiza o campo 'role' com o valor recebido
+    .eq("id", id)
+    .select()
+    if (error) throw error;
+    // Se o dado ser nulo signifca que ele não foi encontrado
+    if (!data || data.length == 0) return res.status(404).json({ error: 'Usuário não encontrado.' });
+
+    return res.status(200).json(data);
+
+  } catch (error) {
+    console.error("Erro ao buscar usuários:", error.message);
+    return res.status(500).json({ error: "Não foi possível buscar os usuários." });
   }
 });
 
