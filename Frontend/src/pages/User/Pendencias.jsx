@@ -3,7 +3,8 @@
     Permite aprovar ou rejeitar candidaturas, além de buscar por nome do candidato ou animal.
 */
 import React, { useState, useEffect } from 'react';
-import api from '../../server/server'; 
+import api from '../../server/server';
+import { supabase } from '../../supabaseClient';  // Importa o cliente Supabase 
 import './Users.css';
 
 export default function Pendentes() {
@@ -18,8 +19,21 @@ export default function Pendentes() {
             setLoading(true);
             setError(null);
            
-            const response = await api.get('/admin/solicitacoes');
-            setApplications(response.data);
+            const {data, error} = await supabase
+                .from ('adoption_applications')
+                .select(`
+                    id,
+                    application_date,
+                    status,
+                    profiles (full_name, Telephone),
+                    pets (id, name)
+                `)
+                .eq('status', 'pendente')
+                .order('application_date', { ascending: false });
+
+            if (error) throw error;
+
+            setApplications(data);
         } catch (err) {
             console.error("Erro ao buscar candidaturas:", err);
             setError("Não foi possível carregar as candidaturas pendentes.");

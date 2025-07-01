@@ -211,49 +211,6 @@ app.delete("/solicitacoes/:id", async (req, res) => {
     return res.status(500).json({ error: "Não foi possível Deleta uma candidatura." });
   }
 });
-// Rota para listar todas as solicitações de um usuário específico
-app.get("/solicitacoes/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const { data, error } = await supabaseAdmin
-      .from("adoption_applications")
-      .select()
-      .eq('user_id', id); // Corrigido para buscar por user_id
-
-    if (error) throw error;
-
-    if (!data || data.length === 0) {
-      return res.status(404).json({ error: "Nenhuma candidatura encontrada." });
-    }
-
-    return res.status(200).json(data);
-  } catch (error) {
-    console.error("Erro ao buscar candidaturas:", error.message);
-    return res.status(500).json({ error: "Erro interno ao buscar as candidaturas." });
-  }
-});
-// Rota para listar TODAS as candidaturas pendentes Acesso só para adms
-app.get("/admin/solicitacoes", async (req, res) => {
-  try {
-    const { data, error } = await supabaseAdmin
-      .from("adoption_applications")
-      .select(
-        `
-        id, status, application_date,
-        pets (id, name),
-        profiles (id, full_name, Telephone)
-      `
-      )
-      .eq("status", "pendente");
-
-    if (error) throw error;
-    return res.status(200).json(data);
-  } catch (error) {
-    console.error("Erro ao buscar candidaturas:", error.message);
-    return res.status(500).json({ error: "Não foi possível buscar as candidaturas." });
-  }
-});
 // Rota para seta um usuário cadastrado com admin. Acesso só para adms.
 app.put("/users/:id", async (req, res) => {
   try {
