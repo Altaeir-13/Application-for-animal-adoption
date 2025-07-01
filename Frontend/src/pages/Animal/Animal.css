@@ -1,0 +1,19 @@
+/* Estilos para a página de detalhes do animal */
+.animal-detail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 80vh;
+  background-color: #f4f6f8;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.animal-detail-container .detail-image {
+  align-self: flex-start; 
+  max-width: 50%;
+  max-height: 50%;  
+  margin-right: 20px;
+  border-radius: 12px;
+}

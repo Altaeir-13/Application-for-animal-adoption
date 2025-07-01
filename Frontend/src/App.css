@@ -57,63 +57,94 @@ h1 + p { /* O parágrafo logo após o h1 */
   margin-bottom: 3rem;
 }
 
-/* --- Navbar --- */
-.navbar {
-  background-color: var(--white);
-  padding: 1rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.navbar .container {
+/* --- LoginPage Styles --- */
+.login-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.navbar-brand {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--primary-red);
-  text-decoration: none;
-}
-
-.navbar-nav {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-link {
-  color: var(--dark-blue);
-  text-decoration: none;
-  font-weight: 600;
-  padding-bottom: 5px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: var(--primary-red);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover {
-  color: var(--primary-red);
-}
-
-.nav-link:hover::after {
   width: 100%;
+  min-height: calc(100vh - 150px);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+/* A caixa branca onde o formulário de login fica */
+.login-box {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+/* Agrupador para cada 'label' e 'input' */
+.input-group {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #777;
+  margin-bottom: 1rem;
+  box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos na largura total */
+  display: flex;
+  border-radius: 8px;
+}
+
+form input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  display: flex;
+  background-color: transparent; 
+}
+
+.link-button {
+  border: none;
+  background:  none;
+  padding: none;
+  color: var(--dark-blue);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Mensagem de erro que aparece abaixo dos inputs */
+.error-message {
+  color: var(--primary-red);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* --- CadastroPage Styles --- */
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 150px); /* Ajuste conforme necessário */
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.cadastro-box {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow) rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.input-group-cadastro {
+  padding: 15px;
+  border: 1px solid #777;
+  margin-bottom: 1rem;
+  display: flex;
+  border-radius: 8px;
 }
 
 /* --- Animal List & Cards --- */
@@ -185,7 +216,6 @@ h1 + p { /* O parágrafo logo após o h1 */
   background-color: #c42d3a; /* Um tom de vermelho mais escuro */
   transform: scale(1.03);
 }
-
 /* --- Footer --- */
 .footer {
   background-color: var(--dark-blue);
