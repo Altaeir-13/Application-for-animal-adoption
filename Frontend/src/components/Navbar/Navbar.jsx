@@ -68,7 +68,7 @@ export default function Navbar() {
       
       <div className="navbar-links">
         <Link to="/">Home</Link>
-        <Link to="/">Como Ajudar</Link> {/*Link to="/como-ajudar" ainda não implementado*/}
+        <Link to="/ComoAjudar">Como Ajudar</Link> {/*Link to="/como-ajudar" ainda não implementado*/}
 
         {user ? (
           <div className="profile-menu-container" ref={profileMenuRef}>

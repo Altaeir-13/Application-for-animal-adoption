@@ -16,7 +16,8 @@ import AnimalPage from './pages/Animal/AnimalPage.jsx'; // Sua página de detalh
 import AnimalCadastroPage from './pages/CadastroAnimal.jsx'; // Sua página de cadastro de animal
 import UsersPage from './pages/User/UsersPage.jsx';
 import Pendencias from './pages/User/Pendencias.jsx'; // Sua página de pendências
-import UserAdocoes from './pages/User/UserAdocoes.jsx'; // Sua página de Adocoes do User
+import UserAdocoes from './pages/User/UserAdocoes.jsx'; // Sua página de Adocoes do 
+import ComoAjudar from './pages/ComoAjudar.jsx'; // Sua página de Como Ajudar
 import './index.css';
 
 // O AuthProvider envolve o RouterProvider para que todas as rotas tenham acesso ao contexto de autenticação
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "UserAdocoes/:id",
         element: <UserAdocoes/>
+      },
+      {
+        path: "ComoAjudar",
+        element: <ComoAjudar/>
       },
 
     ]
