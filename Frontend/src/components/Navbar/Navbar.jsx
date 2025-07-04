@@ -96,8 +96,6 @@ export default function Navbar() {
                 )}
                 
                 <Link to={`/UserAdocoes/${user.id}`} className="dropdown-item">Minhas Adoções</Link>
-                <Link to="/" className="dropdown-item">Gerir Perfil</Link> 
-                
                 <button onClick={handleLogout} className="dropdown-item logout">
                   Terminar sessão
                 </button>
