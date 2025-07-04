@@ -95,7 +95,7 @@ export default function Navbar() {
                 aria-label="Abrir menu do perfil"
               />
             )}
-            {isProfileOpen || isMobileMenuOpen  && (
+            {(isProfileOpen || isMobileMenuOpen) && (
               <div className="dropdown-menu">
                 <div className="dropdown-header">
                   <span>Olá, {profile?.full_name || user.email.split('@')[0]}!</span>
