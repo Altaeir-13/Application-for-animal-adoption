@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // 1. O URL do seu backend na Render foi atualizado.
-const API_URL = 'https://application-for-animal-adoption.onrender.com/api';
+const API_URL = 'https://application-for-animal-adoption.onrender.com';
 
 // 2. Cria a instância do Axios com o novo URL base.
 const api = axios.create({
@@ -11,4 +11,3 @@ const api = axios.create({
 
 export default api;
 
-// 3. Configura o Axios para enviar o token de autenticação em cada requisição, se disponível.
