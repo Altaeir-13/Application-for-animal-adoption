@@ -7,6 +7,26 @@
   --gray-text: #7f8c8d;
 }
 
+/* No final do seu Navbar.css */
+
+@media (max-width: 768px) {
+  .navbar {
+    /* Muda a direção para empilhar o logo e os links */
+    flex-direction: column;
+    padding: 1rem; /* Aumenta o espaçamento */
+    gap: 1rem; /* Adiciona espaço entre o logo e os links */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+  }
+
+  .navbar-links {
+    /* Também pode empilhar os próprios links se necessário */
+    flex-direction: column;
+    gap: 1rem; /* Adiciona espaço entre os links */
+
+  }
+}
+
+
 /* --- Estilos Gerais da Navbar --- */
 .navbar {
   background-color: var(--white);
