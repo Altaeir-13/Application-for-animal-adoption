@@ -1,4 +1,6 @@
-/* Definição de variáveis de cor para fácil manutenção do tema */
+/* src/components/Navbar/Navbar.css */
+
+/* 1. Definição das suas variáveis de cor para fácil manutenção */
 :root {
   --primary-red: #e74c3c;
   --dark-blue: #2c3e50;
@@ -7,27 +9,7 @@
   --gray-text: #7f8c8d;
 }
 
-/* No final do seu Navbar.css */
-
-@media (max-width: 768px) {
-  .navbar {
-    /* Muda a direção para empilhar o logo e os links */
-    flex-direction: column;
-    padding: 1rem; /* Aumenta o espaçamento */
-    gap: 1rem; /* Adiciona espaço entre o logo e os links */
-    align-items: flex-start; /* Alinha os itens à esquerda */
-  }
-
-  .navbar-links {
-    /* Também pode empilhar os próprios links se necessário */
-    flex-direction: column;
-    gap: 1rem; /* Adiciona espaço entre os links */
-
-  }
-}
-
-
-/* --- Estilos Gerais da Navbar --- */
+/* --- Estilos Gerais da Navbar (Baseado no seu código) --- */
 .navbar {
   background-color: var(--white);
   padding: 1rem 2rem;
@@ -42,15 +24,18 @@
   font-weight: 700;
   color: var(--primary-red);
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.navbar-links, .auth-links {
+.navbar-links {
   display: flex;
   gap: 1.5rem;
   align-items: center;
 }
 
-.navbar-links a, .auth-links a {
+.navbar-links a {
   color: var(--dark-blue);
   text-decoration: none;
   font-weight: 600;
@@ -78,29 +63,42 @@
   width: 100%;
 }
 
-
-/* --- BOTÃO DE PERFIL COMO ÍCONE REDONDO --- */
-.profile-icon-button {
-  background-color: var(--dark-blue); /* Cor do ícone */
-  border: none;
-  border-radius: 0%; /* Deixa o botão perfeitamente redondo */
-  width: 50px;
-  height: 40px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  
-  /* SVG de um ícone de usuário usado como máscara */
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
-  
-  /* Garante que o ícone preencha o botão */
-  mask-size: 60%;
-  mask-position: left;
-  mask-repeat: no-repeat;
+/* --- Estilos para os Botões (Perfil, Entrar, etc.) --- */
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.profile-icon-button:hover {
-  background-color: var(--primary-red); /* Muda a cor do ícone ao passar o mouse */
+.navbar-button, .auth-buttons > a {
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: var(--dark-blue);
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar-button:hover, .auth-buttons > a:hover:not(.navbar-button-primary) {
+    background-color: #f5f5f5;
+}
+
+.navbar-button-primary {
+    background-color: var(--primary-red);
+    border-color: var(--primary-red);
+    color: var(--white) !important;
+}
+
+.navbar-button-primary:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    color: var(--white) !important;
 }
 
 /* --- Estilos para o Menu Dropdown de Perfil --- */
@@ -110,7 +108,7 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 55px; /* Distância do topo da navbar */
+  top: 55px;
   right: 0;
   background-color: var(--white);
   border-radius: 8px;
@@ -167,13 +165,59 @@
   font-weight: 600;
 }
 
-/* Ícone do botão de logout */
-.dropdown-item.logout::before {
-  content: '';
-  width: 16px;
-  height: 16px;
-  background-color: currentColor;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
-  background-repeat: no-repeat;
+/* --- Estilos para o Menu Hambúrguer e Responsividade --- */
+
+.hamburger-menu {
+  display: none; /* Escondido em ecrãs de computador */
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dark-blue);
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none; /* Esconde os links por defeito em telemóveis */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 1000;
+  }
+
+  .navbar-links.open {
+    display: flex; /* Mostra o menu quando está aberto */
+  }
+
+  .navbar-links a,
+  .navbar-links .navbar-button {
+    font-size: 1.5rem;
+  }
+
+  .hamburger-menu {
+    display: block; /* Mostra o botão hambúrguer em telemóveis */
+    z-index: 1001;
+  }
+
+  .profile-menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    background: none;
+    border: none;
+    align-items: center;
+  }
 }
