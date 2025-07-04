@@ -10,3 +10,5 @@ const api = axios.create({
 });
 
 export default api;
+
+// 3. Configura o Axios para enviar o token de autenticação em cada requisição, se disponível.
