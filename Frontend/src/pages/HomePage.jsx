@@ -4,7 +4,7 @@ import AnimalList from '../components/AnimalList/AnimalList.jsx';
 export default function HomePage() {
   return (
     <div className="container">
-      <h1>Adote um Amigo Fiel</h1>
+      <h1>🐾 Adote Já</h1>
       <p>Encontre seu novo companheiro e transforme uma vida para sempre.</p>
       <AnimalList />
     </div>

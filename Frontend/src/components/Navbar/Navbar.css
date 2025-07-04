@@ -1,19 +1,17 @@
-/* src/components/Navbar/Navbar.css */
-
 /* Definição de variáveis de cor para fácil manutenção do tema */
 :root {
-  --primary-red: #e74c3c; /* Cor vermelha para o branding */
-  --dark-blue: #2c3e50;   /* Cor escura para o texto */
-  --light-gray: #f0f0f0;  /* Cor clara para bordas e fundos */
+  --primary-red: #e74c3c;
+  --dark-blue: #2c3e50;
+  --light-gray: #f0f0f0;
   --white: #ffffff;
+  --gray-text: #7f8c8d;
 }
 
-/* --- Estilos Gerais da Navbar (Baseado no seu código) --- */
+/* --- Estilos Gerais da Navbar --- */
 .navbar {
   background-color: var(--white);
   padding: 1rem 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-bottom: 1px solid #e0e0e0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -26,15 +24,13 @@
   text-decoration: none;
 }
 
-.navbar-links {
-  list-style: none;
+.navbar-links, .auth-links {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  margin: 5px;
 }
 
-.navbar-links a {
+.navbar-links a, .auth-links a {
   color: var(--dark-blue);
   text-decoration: none;
   font-weight: 600;
@@ -62,46 +58,39 @@
   width: 100%;
 }
 
-.navbar-button {
-  cursor: pointer;
+
+/* --- BOTÃO DE PERFIL COMO ÍCONE REDONDO --- */
+.profile-icon-button {
+  background-color: var(--dark-blue); /* Cor do ícone */
   border: none;
-  background: none;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  color: var(--dark-blue);
-  font-family: inherit;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 0%; /* Deixa o botão perfeitamente redondo */
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  /* SVG de um ícone de usuário usado como máscara */
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2'%3E%3C/path%3E%3Ccircle cx='12' cy='7' r='4'%3E%3C/circle%3E%3C/svg%3E");
+  
+  /* Garante que o ícone preencha o botão */
+  mask-size: 60%;
+  mask-position: left;
+  mask-repeat: no-repeat;
 }
 
-.navbar-button:hover, .auth-buttons > a:hover {
-    background-color: #f5f5f5;
+.profile-icon-button:hover {
+  background-color: var(--primary-red); /* Muda a cor do ícone ao passar o mouse */
 }
-
-.navbar-button-primary {
-    background-color: var(--primary-red);
-    border-color: var(--primary-red);
-    color: var(--white) !important;
-}
-
-.navbar-button-primary:hover {
-    background-color: #c0392b; /* Um tom mais escuro de vermelho */
-    border-color: #c0392b;
-    color: var(--white) !important;
-}
-
 
 /* --- Estilos para o Menu Dropdown de Perfil --- */
 .profile-menu-container {
   position: relative;
-  display: inline-block;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 55px;
+  top: 55px; /* Distância do topo da navbar */
   right: 0;
   background-color: var(--white);
   border-radius: 8px;
@@ -109,8 +98,6 @@
   width: 280px;
   z-index: 1000;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
   border: 1px solid #eee;
 }
 
@@ -128,16 +115,15 @@
   font-weight: bold;
   font-size: 1rem;
   color: var(--dark-blue);
-  margin-top: 0.5rem;
 }
 
 .dropdown-header small {
   font-size: 0.8rem;
-  color: #7f8c8d;
+  color: var(--gray-text);
 }
 
 .dropdown-item {
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 1.2rem;
   text-decoration: none;
   color: var(--dark-blue);
   font-size: 0.9rem;
@@ -147,7 +133,6 @@
   text-align: left;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  /* Added for alignment */
   display: flex;
   align-items: center;
   gap: 0.75rem; 
@@ -158,19 +143,17 @@
 }
 
 .dropdown-item.logout {
-    color: var(--primary-red);
-    font-weight: 600;
+  color: var(--primary-red);
+  font-weight: 600;
 }
 
-/* --- ICON ADDED HERE --- */
+/* Ícone do botão de logout */
 .dropdown-item.logout::before {
-    content: '';
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    /* Embedded SVG Icon (box with an arrow pointing out) */
-    background-color: currentColor; /* Makes the icon match the text color (red) */
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
 }

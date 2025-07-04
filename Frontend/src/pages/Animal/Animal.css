@@ -11,9 +11,19 @@
 }
 
 .animal-detail-container .detail-image {
-  align-self: flex-start; 
-  max-width: 50%;
-  max-height: 50%;  
-  margin-right: 20px;
-  border-radius: 12px;
+    /* Define uma largura fixa e grande, mas razoável para a web */
+    width: 680px;
+    /* Força a altura a ser igual à largura, criando um quadrado perfeito */
+    height: 680px;
+
+    /* A PROPRIEDADE MAIS IMPORTANTE: */
+    /* Faz a imagem cobrir todo o espaço do container sem distorcer. */
+    /* A imagem é "zoomada" e cortada para caber, se necessário. */
+    object-fit: cover;
+
+    margin-right: 30px; /* Aumentei um pouco a margem para dar mais respiro */
+    border-radius: 12px;
+
+    /* Removemos max-width e max-height que limitavam o tamanho */
+    /* Removemos align-self pois não é mais necessário com tamanho fixo */
 }
