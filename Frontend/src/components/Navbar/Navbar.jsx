@@ -25,12 +25,12 @@ export default function Navbar() {
     setIsAdmin(false);
 
     async function fetchProfile() {
-        if (!user) {
-                setProfileLoading(false);
-                return;
-        }
-        setProfileLoading(true);
-        try {
+      if (!user) {
+        setProfileLoading(false);
+        return;
+      }
+      setProfileLoading(true);
+      try {
         const { data, error } = await supabase
           .from('profiles')
           .select('full_name, role')
@@ -41,11 +41,11 @@ export default function Navbar() {
           setProfile(data);
           setIsAdmin(data.role === 'admin');
         }
-        } catch (error) {
-            console.error("Erro ao buscar perfil na Navbar:", error);
-        } finally {
-            setProfileLoading(false);
-        }   
+      } catch (error) {
+        console.error("Erro ao buscar perfil na Navbar:", error);
+      } finally {
+        setProfileLoading(false);
+      }
     }
 
     fetchProfile();
@@ -76,8 +76,8 @@ export default function Navbar() {
       <Link to="/" className="navbar-brand">🐾 Adote Já</Link>
 
       {/* Botão Hambúrguer (só aparece em telemóveis - controlado via CSS) */}
-      <button 
-        className="hamburger-menu" 
+      <button
+        className="hamburger-menu"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Abrir menu"
       >
@@ -91,8 +91,8 @@ export default function Navbar() {
 
         {user ? (
           <div className="profile-menu-container" ref={profileMenuRef}>
-            <button 
-              onClick={() => setIsProfileOpen(!isProfileOpen)} 
+            <button
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
               className="profile-icon-button"
               aria-label="Abrir menu do perfil"
             />
@@ -102,14 +102,16 @@ export default function Navbar() {
                   <span>Olá, {profile?.full_name || user.email.split('@')[0]}!</span>
                   <small>{user.email}</small>
                 </div>
+
                 {isAdmin && (
                   <>
-                    <Link to="/animal-cadastro" onClick={handleLinkClick} className="dropdown-item admin">Cadastrar Animal</Link>
-                    <Link to="/Users" onClick={handleLinkClick} className="dropdown-item admin">Painel de Utilizadores</Link>
-                    <Link to="/Pendencias" onClick={handleLinkClick} className="dropdown-item admin">Painel de Pendências</Link>
+                    <Link to="/animal-cadastro" className="dropdown-item admin">Cadastrar Animal</Link>
+                    <Link to="/Users" className="dropdown-item admin">Painel de Utilizadores</Link>
+                    <Link to="/Pendencias" className="dropdown-item admin">Painel de Pendências</Link>
                   </>
                 )}
-                <Link to={`/UserAdocoes/${user.id}`} onClick={handleLinkClick} className="dropdown-item">Minhas Adoções</Link>
+
+                <Link to={`/UserAdocoes/${user.id}`} className="dropdown-item">Minhas Adoções</Link>
                 <button onClick={handleLogout} className="dropdown-item logout">
                   Terminar sessão
                 </button>
@@ -118,7 +120,7 @@ export default function Navbar() {
           </div>
         ) : (
           <div className="auth-links">
-            <Link to="/login" onClick={handleLinkClick}>Entrar</Link>
+            <Link to="/login">Entrar</Link>
           </div>
         )}
       </div>
