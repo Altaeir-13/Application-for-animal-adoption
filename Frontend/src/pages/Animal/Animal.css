@@ -1,29 +1,90 @@
-/* Estilos para a página de detalhes do animal */
+/* src/pages/AnimalPage/AnimalPage.css */
+
+/* --- Estilos para Computador (Baseado no seu código) --- */
+
 .animal-detail-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 80vh;
+  min-height: 80vh; /* Usar min-height é mais flexível */
   background-color: #f4f6f8;
-  padding: 20px;
+  padding: 2rem;
   box-sizing: border-box;
 }
 
-.animal-detail-container .detail-image {
-    /* Define uma largura fixa e grande, mas razoável para a web */
-    width: 680px;
-    /* Força a altura a ser igual à largura, criando um quadrado perfeito */
-    height: 680px;
+.detail-image {
+  width: 500px; /* Um bom tamanho base para a imagem */
+  height: 500px;
+  object-fit: cover; /* Perfeito para a imagem não distorcer */
+  margin-right: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  flex-shrink: 0; /* Impede que a imagem encolha */
+}
 
-    /* A PROPRIEDADE MAIS IMPORTANTE: */
-    /* Faz a imagem cobrir todo o espaço do container sem distorcer. */
-    /* A imagem é "zoomada" e cortada para caber, se necessário. */
-    object-fit: cover;
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px; /* Limita a largura do texto */
+}
 
-    margin-right: 30px; /* Aumentei um pouco a margem para dar mais respiro */
-    border-radius: 12px;
+.detail-info h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin: 0 0 1rem 0;
+}
 
-    /* Removemos max-width e max-height que limitavam o tamanho */
-    /* Removemos align-self pois não é mais necessário com tamanho fixo */
+.detail-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.adopt-button-large {
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* Alinha o botão à esquerda */
+}
+
+.adopt-button-large:hover:not(:disabled) {
+  background-color: #c0392b;
+}
+
+/* --- ATUALIZAÇÃO PARA TELAS PEQUENAS --- */
+
+@media (max-width: 768px) {
+  .animal-detail-container {
+    /* Em telemóveis, os itens ficam empilhados verticalmente */
+    flex-direction: column;
+    padding: 1rem; /* Menos espaçamento */
+  }
+
+  .detail-image {
+    /* A imagem agora ocupa a largura total e tem uma altura fixa */
+    width: 100%;
+    height: 300px;
+    margin-right: 0; /* Remove a margem lateral */
+    margin-bottom: 1.5rem; /* Adiciona espaço em baixo */
+  }
+
+  .detail-info {
+    /* O texto agora fica centrado */
+    align-items: center;
+    text-align: center;
+  }
+
+  .adopt-button-large {
+    /* O botão agora ocupa a largura toda para ser mais fácil de tocar */
+    width: 100%;
+    align-self: center;
+  }
 }
