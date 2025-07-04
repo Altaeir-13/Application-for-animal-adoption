@@ -86,8 +86,8 @@ export default function Navbar() {
 
       {/* A classe 'open' é adicionada condicionalmente para mostrar o menu em telemóveis */}
       <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
-        <Link to="/" onClick={handleLinkClick}>Home</Link>
-        <Link to="/ComoAjudar" onClick={handleLinkClick}>Como Ajudar</Link>
+        <Link to="/">Home</Link>
+        <Link to="/ComoAjudar">Como Ajudar</Link>
 
         {user ? (
           <div className="profile-menu-container" ref={profileMenuRef}>
