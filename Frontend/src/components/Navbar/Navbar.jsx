@@ -88,12 +88,14 @@ export default function Navbar() {
 
         {user ? (
           <div className="profile-menu-container" ref={profileMenuRef}>
-            <button 
-              onClick={() => setIsProfileOpen(!isProfileOpen)} 
-              className="profile-icon-button"
-              aria-label="Abrir menu do perfil"
-            />
-            {isProfileOpen && (
+            { !isMobileMenuOpen  && (    
+              <button 
+                onClick={() => setIsProfileOpen(!isProfileOpen)} 
+                className="profile-icon-button"
+                aria-label="Abrir menu do perfil"
+              />
+            )}
+            {isProfileOpen || isMobileMenuOpen  && (
               <div className="dropdown-menu">
                 <div className="dropdown-header">
                   <span>Olá, {profile?.full_name || user.email.split('@')[0]}!</span>
