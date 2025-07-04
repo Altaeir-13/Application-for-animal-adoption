@@ -3,17 +3,55 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../supabaseClient';
 import './Navbar.css';
 
 export default function Navbar() {
-  const { user, profile, isAdmin, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
+  // Seus estados locais para perfil e admin
+  const [profile, setProfile] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Estados para controlar os menus
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Estado para o menu hambúrguer
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Novo estado para o menu hambúrguer
   const profileMenuRef = useRef(null);
 
-  // Efeito para fechar o menu de perfil ao clicar fora
+  // Seu useEffect para buscar o perfil (sem alterações)
+  useEffect(() => {
+    setProfile(null);
+    setIsAdmin(false);
+
+    async function fetchProfile() {
+        if (!user) {
+                setProfileLoading(false);
+                return;
+        }
+        setProfileLoading(true);
+        try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('full_name, role')
+          .eq('id', user.id)
+          .single();
+        if (error) throw error;
+        if (data) {
+          setProfile(data);
+          setIsAdmin(data.role === 'admin');
+        }
+        } catch (error) {
+            console.error("Erro ao buscar perfil na Navbar:", error);
+        } finally {
+            setProfileLoading(false);
+        }   
+    }
+
+    fetchProfile();
+  }, [user]);
+
+  // Seu useEffect para fechar o menu de perfil (sem alterações)
   useEffect(() => {
     function handleClickOutside(event) {
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
@@ -24,18 +62,14 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [profileMenuRef]);
 
+  // Função para fechar todos os menus ao navegar
+
   const handleLogout = async () => {
+    await signOut()
     setIsProfileOpen(false);
     setIsMobileMenuOpen(false);
-    await signOut();
     navigate('/');
   };
-
-  // Função para fechar todos os menus ao navegar
-  const handleLinkClick = () => {
-    setIsProfileOpen(false);
-    setIsMobileMenuOpen(false);
-  }
 
   return (
     <nav className="navbar">
@@ -47,24 +81,21 @@ export default function Navbar() {
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         aria-label="Abrir menu"
       >
-        &#9776; {/* Este é o caractere do ícone hambúrguer */}
+        &#9776; {/* Caractere do ícone hambúrguer */}
       </button>
 
       {/* A classe 'open' é adicionada condicionalmente para mostrar o menu em telemóveis */}
       <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
-        <Link to="/" onClick={handleLinkClick}>Animais</Link>
-        <Link to="/como-ajudar" onClick={handleLinkClick}>Como Ajudar</Link>
+        <Link to="/" onClick={handleLinkClick}>Home</Link>
+        <Link to="/ComoAjudar" onClick={handleLinkClick}>Como Ajudar</Link>
 
         {user ? (
-          // Container do perfil para utilizadores logados
           <div className="profile-menu-container" ref={profileMenuRef}>
             <button 
               onClick={() => setIsProfileOpen(!isProfileOpen)} 
-              className="navbar-button"
-            >
-              Perfil
-            </button>
-
+              className="profile-icon-button"
+              aria-label="Abrir menu do perfil"
+            />
             {isProfileOpen && (
               <div className="dropdown-menu">
                 <div className="dropdown-header">
@@ -72,13 +103,13 @@ export default function Navbar() {
                   <small>{user.email}</small>
                 </div>
                 {isAdmin && (
-                  <Link to="/admin/users" onClick={handleLinkClick} className="dropdown-item admin">
-                    Painel Admin
-                  </Link>
+                  <>
+                    <Link to="/animal-cadastro" onClick={handleLinkClick} className="dropdown-item admin">Cadastrar Animal</Link>
+                    <Link to="/Users" onClick={handleLinkClick} className="dropdown-item admin">Painel de Utilizadores</Link>
+                    <Link to="/Pendencias" onClick={handleLinkClick} className="dropdown-item admin">Painel de Pendências</Link>
+                  </>
                 )}
-                <Link to="/perfil/editar" onClick={handleLinkClick} className="dropdown-item">
-                  Gerir Perfil
-                </Link>
+                <Link to={`/UserAdocoes/${user.id}`} onClick={handleLinkClick} className="dropdown-item">Minhas Adoções</Link>
                 <button onClick={handleLogout} className="dropdown-item logout">
                   Terminar sessão
                 </button>
@@ -86,10 +117,8 @@ export default function Navbar() {
             )}
           </div>
         ) : (
-          // Botões para utilizadores não logados
-          <div className="auth-buttons">
-            <Link to="/login" onClick={handleLinkClick} className='navbar-button'>Entrar</Link>
-            <Link to="/cadastro" onClick={handleLinkClick} className="navbar-button-primary">Cadastre-se</Link>
+          <div className="auth-links">
+            <Link to="/login" onClick={handleLinkClick}>Entrar</Link>
           </div>
         )}
       </div>
