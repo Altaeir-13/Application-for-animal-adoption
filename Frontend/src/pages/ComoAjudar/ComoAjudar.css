@@ -1,0 +1,159 @@
+/* frontend/src/pages/ComoAjudar/ComoAjudar.css */
+
+/* Container principal da página 'Como Ajudar' */
+.como-ajudar-container {
+    max-width: 800px;
+    margin: 2rem auto; /* Centraliza o container na página */
+    padding: 2rem 3rem;
+    background-color: #ffffff; /* Fundo branco para o conteúdo */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidade */
+    text-align: center; /* Centraliza todo o texto */
+}
+
+/* Título principal */
+.como-ajudar-container h1 {
+    color: #2c3e50; /* Um azul escuro, mais profissional */
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+/* Parágrafo de introdução */
+.como-ajudar-container p {
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* Lista de formas de ajudar */
+.como-ajudar-container ul {
+    list-style: none; /* Remove os marcadores padrão da lista */
+    padding: 0;
+    text-align: left; /* Alinha o texto da lista à esquerda */
+    display: inline-block; /* Faz a lista ocupar apenas o espaço necessário */
+    margin-bottom: 2.5rem;
+}
+
+.como-ajudar-container ul li {
+    color: #333;
+    font-size: 1.1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f0f0f0; /* Linha sutil separando os itens */
+}
+
+/* Adiciona um ícone de 'patinha' antes de cada item da lista */
+.como-ajudar-container ul li::before {
+    content: '🐾'; /* Você pode usar qualquer emoji ou ícone */
+    margin-right: 12px;
+    color: #3498db; /* Cor azul para o ícone */
+}
+
+/* Remove a borda do último item da lista */
+.como-ajudar-container ul li:last-child {
+    border-bottom: none;
+}
+
+.como-ajudar-container ul li strong {
+    color: #3498db; /* Cor de destaque para as palavras-chave */
+}
+
+/* Container dos links/botões */
+.como-ajudar-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Espaçamento entre os botões */
+    flex-wrap: wrap; /* Permite que os botões quebrem a linha em telas pequenas */
+}
+
+/* Estilo padrão para os botões de ação */
+.btn-ajudar {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #28a745; /* Verde para a ação principal */
+    border: none;
+    border-radius: 8px;
+    text-decoration: none; /* Remove o sublinhado do link */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-ajudar:hover {
+    transform: translateY(-3px); /* Efeito de levantar ao passar o mouse */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para o botão secundário */
+.btn-ajudar.btn-secundario {
+    background-color: #3498db; /* Azul para a segunda ação */
+}
+
+/* ============================================== */
+/* === NOVOS ESTILOS PARA A SEÇÃO DE CONTATOS === */
+/* ============================================== */
+
+.contatos-devs-wrapper {
+    margin-top: 3rem; /* Espaço acima da nova seção */
+    padding-top: 2rem;
+    border-top: 2px solid #f0f0f0; /* Linha para separar visualmente */
+    animation: fadeIn 0.5s ease-in-out; /* Animação de aparição */
+}
+
+.contatos-devs-wrapper h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.contatos-devs-wrapper p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.devs-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.dev-card {
+    background-color: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    min-width: 200px;
+    text-align: center;
+}
+
+.dev-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #3498db;
+}
+
+.dev-card a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.dev-card a:hover {
+    text-decoration: underline;
+}
+
+/* Animação para a seção aparecer suavemente */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

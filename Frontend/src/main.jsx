@@ -17,7 +17,7 @@ import AnimalCadastroPage from './pages/CadastroAnimal.jsx'; // Sua página de c
 import UsersPage from './pages/User/UsersPage.jsx';
 import Pendencias from './pages/User/Pendencias.jsx'; // Sua página de pendências
 import UserAdocoes from './pages/User/UserAdocoes.jsx'; // Sua página de Adocoes do 
-import ComoAjudar from './pages/ComoAjudar.jsx'; // Sua página de Como Ajudar
+import ComoAjudar from './pages/ComoAjudar/ComoAjudar.jsx'; // Sua página de Como Ajudar
 import './index.css';
 
 // O AuthProvider envolve o RouterProvider para que todas as rotas tenham acesso ao contexto de autenticação
