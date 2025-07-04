@@ -147,6 +147,10 @@
   text-align: left;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  /* Added for alignment */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; 
 }
 
 .dropdown-item:hover {
@@ -155,5 +159,18 @@
 
 .dropdown-item.logout {
     color: var(--primary-red);
-    font-weight: 500;
+    font-weight: 600;
+}
+
+/* --- ICON ADDED HERE --- */
+.dropdown-item.logout::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    /* Embedded SVG Icon (box with an arrow pointing out) */
+    background-color: currentColor; /* Makes the icon match the text color (red) */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'%3E%3C/path%3E%3Cpolyline points='16 17 21 12 16 7'%3E%3C/polyline%3E%3Cline x1='21' y1='12' x2='9' y2='12'%3E%3C/line%3E%3C/svg%3E");
+    background-repeat: no-repeat;
 }
